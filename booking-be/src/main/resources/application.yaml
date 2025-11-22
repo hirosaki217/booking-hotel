@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: booking-app
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/booking?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    jdbc-url: jdbc:mysql://localhost:3306/booking?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: booking
+    password: 123
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: BookingHikariPool
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+    contexts: dev
+    drop-first: false
+    default-schema: booking
+
+#  mybatis:
+#    configuration:
+#      map-underscore-to-camel-case: true
+#      default-fetch-size: 100
+#      default-statement-timeout: 30
+
+#mybatis:
+#  config-location: classpath:mybatis-config.xml
+
+logging:
+  level:
+    root: WARN
+    com.tripto.booking_app.mapper: TRACE
+    org.mybatis: DEBUG
+    liquibase: INFO
+    liquibase.changelog: DEBUG
+    liquibase.executor: DEBUG
