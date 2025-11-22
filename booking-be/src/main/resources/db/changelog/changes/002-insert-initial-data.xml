@@ -1,0 +1,44 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="4" author="admin">
+        <insert tableName="roles">
+            <column name="name" value="ADMIN"/>
+            <column name="description" value="Administrator role"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="USER"/>
+            <column name="description" value="Regular user role"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="MANAGER"/>
+            <column name="description" value="Manager role"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="roles">
+                <where>name IN ('ADMIN', 'USER', 'MANAGER')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <!-- Insert admin user (password: admin123 - BCrypt hash) -->
+    <changeSet id="5" author="admin">
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="full_name" value="System Administrator"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="users">
+                <where>username = 'admin'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
