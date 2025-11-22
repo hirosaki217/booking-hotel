@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="admin">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="full_name" type="VARCHAR(255)" />
+            <column name="phone" type="VARCHAR(20)" />
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true" />
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" />
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+
+        <modifySql dbms="mysql">
+            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="2" author="admin">
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="roles"/>
+        </rollback>
+
+        <modifySql dbms="mysql">
+            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="3" author="admin">
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="user_roles"/>
+        </rollback>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

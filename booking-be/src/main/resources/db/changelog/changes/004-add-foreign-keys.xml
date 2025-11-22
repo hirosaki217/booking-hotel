@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Foreign keys cho user_roles -->
+    <changeSet id="7" author="admin">
+        <addForeignKeyConstraint
+                baseTableName="user_roles"
+                baseColumnNames="user_id"
+                constraintName="fk_user_roles_user"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_roles"
+                baseColumnNames="role_id"
+                constraintName="fk_user_roles_role"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="user_roles" constraintName="fk_user_roles_user"/>
+            <dropForeignKeyConstraint baseTableName="user_roles" constraintName="fk_user_roles_role"/>
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -5,8 +5,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/booking?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     jdbc-url: jdbc:mysql://localhost:3306/booking?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: booking
-    password: 123
+    username: root
+    password:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
@@ -17,7 +17,7 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-    enabled: true
+    enabled: false
     contexts: dev
     drop-first: false
     default-schema: booking
