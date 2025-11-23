@@ -16,6 +16,7 @@
     <include file="changes/002-insert-initial-data.xml" relativeToChangelogFile="true"/>
     <include file="changes/003-add-indexes.xml" relativeToChangelogFile="true"/>
     <include file="changes/004-add-foreign-keys.xml" relativeToChangelogFile="true"/>
+    <include file="changes/005-insert-initial-data2.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

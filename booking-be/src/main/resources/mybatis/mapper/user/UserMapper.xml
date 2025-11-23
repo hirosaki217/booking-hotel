@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tripto.booking_app.mapper.UserMapper">
+
+    <resultMap id="findByUsernameResult" type="com.tripto.booking_app.entity.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="is_active" property="isActive" />
+        <collection property="roles" ofType="com.tripto.booking_app.entity.Role">
+            <id column="role_id" property="id" />
+            <result column="name" property="name" />
+        </collection>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="findByUsernameResult" >
+        SELECT
+            users.id,
+            users.username,
+            users.password,
+            users.is_active,
+            roles.id as role_id,
+            roles.name
+        FROM users
+        LEFT JOIN user_roles ON users.id = user_roles.user_id
+        LEFT JOIN roles ON user_roles.role_id = roles.id
+        WHERE users.username = #{username}
+    </select>
+</mapper>
