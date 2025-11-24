@@ -1,13 +1,16 @@
 package com.tripto.booking_app.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 public class User {
 
     private Long id;
@@ -39,4 +42,11 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
+    public void addRole(Role role) {
+        if(roles == null) {
+            roles = new HashSet<>();
+        }
+
+        roles.add(role);
+    }
 }

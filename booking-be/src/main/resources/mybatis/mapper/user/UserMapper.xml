@@ -29,4 +29,45 @@
         LEFT JOIN roles ON user_roles.role_id = roles.id
         WHERE users.username = #{username}
     </select>
+
+    <select id="existsByUsername" resultType="boolean">
+        SELECT
+            CASE WHEN EXIST (
+                SELECT 1
+                FROM users
+                WHERE users.username = #{username}
+            )
+            THEN TRUE ELSE FALSE END
+    </select>
+
+    <select id="existsByEmail" resultType="boolean">
+        SELECT
+        CASE WHEN EXIST (
+        SELECT 1
+        FROM users
+        WHERE users.email = #{email}
+        )
+        THEN TRUE ELSE FALSE END
+    </select>
+
+    <insert id="save" parameterType="com.tripto.booking_app.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users
+        (
+            username,
+            password,
+            email,
+            phone,
+            full_name,
+            is_active
+        )
+        VALUES
+        (
+            #{username},
+            #{password},
+            #{email},
+            #{phone},
+            #{fullName},
+            #{isActive},
+        )
+    </insert>
 </mapper>

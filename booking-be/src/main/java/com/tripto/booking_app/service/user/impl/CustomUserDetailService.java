@@ -25,11 +25,16 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug("Loading user by username: {}", username);
 
-        User user = userService.findByUsername(username)
-                .orElseThrow(() -> {
-                    log.error("User not found with username: {}", username);
-                    return new UsernameNotFoundException("User not found: " + username);
-                });
+        User user = null;
+        try {
+            user = userService.findByUsername(username)
+                    .orElseThrow(() -> {
+                        log.error("User not found with username: {}", username);
+                        return new UsernameNotFoundException("User not found: " + username);
+                    });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         log.debug("User found: {}, roles: {}", user.getUsername(), user.getRoles());
 

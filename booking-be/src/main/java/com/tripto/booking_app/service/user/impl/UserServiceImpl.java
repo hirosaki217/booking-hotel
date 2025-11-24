@@ -15,22 +15,22 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Optional<User> findByUsername(String username) {
+    public Optional<User> findByUsername(String username) throws Exception {
         return userMapper.findByUsername(username);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByEmail(String email) throws Exception {
         return Optional.empty();
     }
 
     @Override
-    public Boolean existsByUsername(String username) {
+    public Boolean existsByUsername(String username) throws Exception {
         return null;
     }
 
     @Override
-    public Boolean existsByEmail(String email) {
+    public Boolean existsByEmail(String email) throws Exception{
         return null;
     }
 }

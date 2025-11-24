@@ -5,8 +5,8 @@ import com.tripto.booking_app.entity.User;
 import java.util.Optional;
 
 public interface UserService {
-    Optional<User> findByUsername(String username);
-    Optional<User> findByEmail(String email);
-    Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+    Optional<User> findByUsername(String username) throws Exception;
+    Optional<User> findByEmail(String email) throws Exception;
+    Boolean existsByUsername(String username) throws Exception;
+    Boolean existsByEmail(String email) throws Exception;
 }
